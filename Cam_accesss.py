@@ -95,66 +95,65 @@ while True:
                 studentInfo['total_attendance'] += 1
                 ref.child('total_attendance').set( studentInfo['total_attendance'])
 
-            # #  Update date and time
+            #  Update date and time
 
-            #     dateTimeobject = datetime.strptime(studentInfo['last_attendance_time'],"%Y-%m-%d %H:%M:%S")
+                dateTimeobject = datetime.strptime(studentInfo['last_attendance_time'],"%Y-%m-%d %H:%M:%S")
 
                                                 
-            #     secondsElapsed = (datetime.now()-dateTimeobject).total_seconds()
-            #     print(secondsElapsed)
+                secondsElapsed = (datetime.now()-dateTimeobject).total_seconds()
+                print(secondsElapsed)
 
-            #     if secondsElapsed>30:        
+                if secondsElapsed>30:        
 
-            #         ref = db.reference(f'student/{id}')
-            #         studentInfo['total_attendance'] += 1
-            #         ref.child('total_attendance').set( studentInfo['total_attendance'])
-            #         ref.child('last_attendance_time').set(datetime.now().strftime("%Y-%
-            m-%d %H:%M:%S"))
+                    ref = db.reference(f'student/{id}')
+                    studentInfo['total_attendance'] += 1
+                    ref.child('total_attendance').set( studentInfo['total_attendance'])
+                    ref.child('last_attendance_time').set(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
             
-            #     else:
-            #         modeType = 3
-            #         counter = 0
-            #     imgBackground[95:95+523, 848:848+350] = imgModeList[modeType]
-
-            # if modeType != 3:
-
-            
-            if 10<counter<20:    
-                    modeType = 2
-
-            imgBackground[95:95+523, 848:848+350] = imgModeList[modeType]
-
-            if counter<=10:
-                cv2.putText(imgBackground,str(studentInfo['total_attendance']),(886,155),
-                            cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),1)
-                cv2.putText(imgBackground,str(studentInfo['Major']),(1022,516),
-                            cv2.FONT_HERSHEY_COMPLEX,0.5,(0,0,0),1)
-                cv2.putText(imgBackground,str(id),(1025,468),
-                            cv2.FONT_HERSHEY_COMPLEX,0.5,(0,0,0),1)
-                cv2.putText(imgBackground,str(studentInfo['standing']),(936,582),
-                            cv2.FONT_HERSHEY_COMPLEX,0.66,(0,0,0),1)
-                cv2.putText(imgBackground,str(studentInfo['year']),(1032,582),
-                            cv2.FONT_HERSHEY_COMPLEX,0.66,(0,0,0),1)
-                cv2.putText(imgBackground,str(studentInfo['Starting-Year']),(1115,582),
-                            cv2.FONT_HERSHEY_COMPLEX,0.66,(0,0,0),1)
-                (w, h), _ = cv2.getTextSize(studentInfo['Name'],
-                            cv2.FONT_HERSHEY_COMPLEX, 1, 1)
-                offset = (350-w)//2
-                cv2.putText(imgBackground,str(studentInfo['Name']),(890+offset,425),
-                            cv2.FONT_HERSHEY_COMPLEX,0.8,(0,0,0),1)                                  
-            
-                imgBackground[175:175+216,916:916+216] = ImgStudent      
-            counter += 1   
-
-            if counter>=20:
-                counter = 0
-                modeType = 0
-                studentInfo = []
-                ImgStudent = []
+                else:
+                    modeType = 3
+                    counter = 0
                 imgBackground[95:95+523, 848:848+350] = imgModeList[modeType]
+
+            if modeType != 3:
+
+            
+                if 10<counter<20:    
+                        modeType = 2
+
+                imgBackground[95:95+523, 848:848+350] = imgModeList[modeType]
+
+                if counter<=10:
+                    cv2.putText(imgBackground,str(studentInfo['total_attendance']),(886,155),
+                                cv2.FONT_HERSHEY_COMPLEX,1,(0,0,0),1)
+                    cv2.putText(imgBackground,str(studentInfo['Major']),(1022,516),
+                                cv2.FONT_HERSHEY_COMPLEX,0.5,(0,0,0),1)
+                    cv2.putText(imgBackground,str(id),(1025,468),
+                                cv2.FONT_HERSHEY_COMPLEX,0.5,(0,0,0),1)
+                    cv2.putText(imgBackground,str(studentInfo['standing']),(936,582),
+                                cv2.FONT_HERSHEY_COMPLEX,0.66,(0,0,0),1)
+                    cv2.putText(imgBackground,str(studentInfo['year']),(1032,582),
+                                cv2.FONT_HERSHEY_COMPLEX,0.66,(0,0,0),1)
+                    cv2.putText(imgBackground,str(studentInfo['Starting-Year']),(1115,582),
+                                cv2.FONT_HERSHEY_COMPLEX,0.66,(0,0,0),1)
+                    (w, h), _ = cv2.getTextSize(studentInfo['Name'],
+                                cv2.FONT_HERSHEY_COMPLEX, 1, 1)
+                    offset = (350-w)//2
+                    cv2.putText(imgBackground,str(studentInfo['Name']),(890+offset,425),
+                                cv2.FONT_HERSHEY_COMPLEX,0.8,(0,0,0),1)                                  
+            
+                    imgBackground[175:175+216,916:916+216] = ImgStudent      
+                counter += 1   
+
+                if counter>=20:
+                    counter = 0
+                    modeType = 0
+                    studentInfo = []
+                    ImgStudent = []
+                    imgBackground[95:95+523, 848:848+350] = imgModeList[modeType]
     else:
         modeType = 0
-        counter = 0
+        counter = 0    
 
     #cv2.imshow('Camera', frame)
     cv2.imshow('Face Attendance', imgBackground)
